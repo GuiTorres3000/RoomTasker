@@ -32,3 +32,4 @@ const start = async () => {
 
 // Chama a função start para iniciar o servidor
 start();
+*/
