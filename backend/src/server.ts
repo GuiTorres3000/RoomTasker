@@ -1,28 +1,25 @@
-import fastify from "fastify";
-import { routes } from "./routes/routes";
-import cors from "@fastify/cors";
+// Server.ts implementado com Express
 
-const app = fastify( {logger: true} );
+import express from "express";
+import { routes } from "./routes/routes";
+import cors from "cors";
+
+// Cria uma instância do Express
+const app = express();
+
+// Usa o middleware CORS (É usado para permitir interação entre diferentes origens)
+app.use(cors());
 
 // Adicionando uma rota de teste
-app.get('/', async (request, reply) => {
-    return { message: 'Servidor rodando!' };
+app.get('/', (req, res) => {
+    res.json({ message: 'Servidor rodando!' });
 });
 
+// Usa as rotas importadas
+app.use(routes);
 
-const start = async () => {
-
-    await app.register(cors);
-    await app.register(routes);
-
-
-    try{
-        // Espera até o app rodar na porta 3000
-        await app.listen({ port:3000})
-    }catch(err){
-        // Encerra o processo da aplicação caso ocorra erro
-        process.exit(1)
-    }
-}
-
-start();
+// Inicia o servidor na porta 3000
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+});
