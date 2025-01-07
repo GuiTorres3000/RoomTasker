@@ -1,4 +1,5 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 interface userProps{
     name: string,
@@ -6,21 +7,22 @@ interface userProps{
     password: string
 }
 
-class userService{
-    async execute({name, email, password}: userProps){
-        if(!name || !email || !password){
-            throw new Error("Preencha o campo!");
-        }
-
-        const user = await prismaClient.user.create({
-            data:{
-                name,
-                email,
-                password
-            }
-        });
-
-        return user;
+export class UserService {
+    async create({name, email, password}: userProps) {
+        try {
+            // Criação do usuário no banco de dados
+            const user = await prisma.user.create({
+                data: {
+                    name,
+                    email,
+                    password, 
+                },
+            });
+    
+            return user;
+        } catch (error) {
+            throw new Error("Erro ao criar usuário!");
+        } 
     }
+    
 }
-export { userService }

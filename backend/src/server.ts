@@ -1,7 +1,7 @@
 // Server.ts implementado com Express
 
 import express from "express";
-import { routes } from "./routes/routes";
+import { userRoutes } from "./routes/userRoutes";
 import cors from "cors";
 
 // Cria uma instância do Express
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 // Usa as rotas importadas
-routes(app);
+userRoutes(app);
 
 // Inicia o servidor na porta 3000
 const PORT = 3000;
