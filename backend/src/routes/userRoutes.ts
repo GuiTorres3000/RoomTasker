@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express";
-import { createUser } from "../controllers/userController";
+import { createUser, getUser, updateUser, deleteUser } from "../controllers/userController";
 
 // Mapeia as endpoints de usuário para o Controlador
 
@@ -12,8 +12,14 @@ export const userRoutes = (app: Express) => {
     app.post("/user", (req: Request, res: Response) => createUser(req, res));
 
     /* Registra uma nova rota no servidor com o id do usuário, 
-        req pega o valor do id do usuario
+        req pega o valor do id do usuario com HTTP GET
         res envia uma resposta para o cliente
     */
-    //app.get("/user/:id", (req: Request, res: Response) => getUser(req, res));
+    app.get("/user/:id", (req: Request, res: Response) => getUser(req, res));
+
+    // HTTP PUT
+    app.put("/user/:id", (req: Request, res: Response) => updateUser(req, res));
+
+    // HTTP DELETE
+    app.delete("/user/:id", (req: Request, res: Response) => deleteUser(req, res));
 };
