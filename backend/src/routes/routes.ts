@@ -1,8 +1,8 @@
-import { Router } from "express";
-import UsersController from "../controllers/users.controllers";
+import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from "fastify";
 
-const routes = Router();
-const usersController = new UsersController();
-routes.get("/users", usersController.get);
-
-export default routes;
+export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions){
+    // Criando uma rota com fastify
+    fastify.get("/teste", async(request: FastifyRequest, reply: FastifyReply) => {
+        return { ok: true }
+    })
+}
