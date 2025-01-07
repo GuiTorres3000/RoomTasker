@@ -1,8 +1,8 @@
-import { FastifyInstance, FastifyPluginOptions, FastifyRequest, FastifyReply } from "fastify";
+import { Request, Response } from "express";
 
-export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions){
-    // Criando uma rota com fastify
-    fastify.get("/teste", async(request: FastifyRequest, reply: FastifyReply) => {
-        return { ok: true }
-    })
+// Define a rota de teste
+export function routes(app: any) {
+    app.get("/teste", (req: Request, res: Response) => {
+        res.json({ ok: true });
+    });
 }

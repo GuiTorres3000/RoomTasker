@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 // Usa as rotas importadas
-app.use(routes);
+routes(app);
 
 // Inicia o servidor na porta 3000
 const PORT = 3000;
