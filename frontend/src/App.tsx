@@ -1,12 +1,20 @@
 import RegisterForm from "./components/auth/registerForm";
-import TableTasks from "./components/tableTasks";
+import TableTasks from "./components/dashboard/tableTasks";
+import Dashboard from "./components/dashboard/dashboard";
+import { BrowserRouter, Route, Routes} from "react-router-dom";
+
 
 function App() {
   return (
     <div className="App">
-        <div className="flex min-h-screen items-center justify-center px-8 py-2 lg:px-2 bg-gray-100">
-            <RegisterForm />
-        </div>
+        <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<RegisterForm />}/>
+              <Route path="/login" element={<TableTasks />}/>
+              <Route path="/dashboard/:id" element={<Dashboard />} />
+            </Routes>
+        </BrowserRouter>
+        
     </div>
   );
 }

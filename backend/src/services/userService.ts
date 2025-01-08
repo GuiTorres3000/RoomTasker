@@ -41,6 +41,14 @@ export class UserService {
                 return user;
             }
         } catch (error) {
+            // Se o erro for uma instância de Error, lança o erro com a mensagem apropriada
+            if (error instanceof Error) {
+              console.error(`Erro ao buscar usuário com ID ${id}: ${error.message}`);
+              throw new Error(`Erro ao obter usuário! Detalhes: ${error.message}`);
+            }
+            
+            // Caso o erro não seja uma instância de Error, lança um erro genérico
+            console.error("Erro inesperado ao buscar o usuário:", error);
             throw new Error("Erro ao obter usuário!");
         }
     }
@@ -75,5 +83,23 @@ export class UserService {
           throw new Error("Erro ao deletar usuário!");
         }
     }
+
+    // Registrar usuário
+    async register({name, email, password}: userProps) {
+      try {
+          // Criação do usuário no banco de dados
+          const user = await prisma.user.create({
+              data: {
+                  name,
+                  email,
+                  password, 
+              },
+          });
+  
+          return user;
+      } catch (error) {
+          throw new Error("Erro ao criar usuário!");
+      } 
+  }
 
 }

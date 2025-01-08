@@ -72,3 +72,24 @@ export const deleteUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Erro ao deletar usuário", error });
     }
 };
+
+// Registrar
+export const registerUser = async (req: Request, res: Response) => {
+    try {
+        // Pegar as informações do body
+        const {name, email, password} = req.body as {name: string, email: string, password: string}
+
+        // Verificar se os campos não estão nulos ou vazios
+        if (!name || !email || !password) {
+            res.status(400).json({ message: "Todos os campos (name, email, password) são obrigatórios." });
+        }else{
+            const user = await userService.register({ name, email, password });
+
+            // Respondendo com o usuário criado através do status 201
+            res.status(201).json(user);
+        }
+    } catch (error) {
+        // Resposta HTTP com status 500, erro de servidor
+        res.status(500).json({ message: "Erro ao registrar usuário", error });
+    }
+};

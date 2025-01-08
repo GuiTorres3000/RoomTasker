@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { registerUser } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
 import InputField from "./inputField";
 
 export default function registerForm() {
@@ -13,6 +14,9 @@ export default function registerForm() {
 
   // Definindo estado que carrega mensagem de erro (pode ser string ou null, e começa como nulo) 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Hook de navegação
+  const navigate = useNavigate();
 
   // Função para lidar com mudanças no input (acionada no onChange)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,13 +35,10 @@ export default function registerForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await registerUser(
-        formData.name, 
-        {
-        email: formData.email,
-        password: formData.password,
-        }
-    );
+      const response = await registerUser(formData.name, { email: formData.email, password: formData.password });
+      // Redireciona para a página do usuário e passa a URL da API
+      navigate(`/dashboard/${response.id}`);
+
       console.log("Usuário registrado com sucesso:", response);
       setErrorMessage(null); // Limpa mensagem de erro ao sucesso
     } catch (error) {
@@ -60,6 +61,7 @@ export default function registerForm() {
 
     return (
       <>
+        <div className="flex min-h-screen items-center justify-center px-8 py-2 lg:px-2 bg-gray-100">
           <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-lg rounded-xl p-8 my-auto">
   
             {formHeader}
@@ -83,12 +85,13 @@ export default function registerForm() {
                 onChange={handleChange}
               />
 
-
+              {/* 
               <div className="text-sm">
                 <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
                   Esqueceu sua senha?
                 </a>
               </div>
+              */}
 
               <InputField
                 id="password"
@@ -99,7 +102,6 @@ export default function registerForm() {
                 required
                 autoComplete="current-password"
               />
-
                 {errorMessage && (
                   <p className="text-red-500 text-sm">{errorMessage}</p>
                 )}
@@ -115,13 +117,14 @@ export default function registerForm() {
               </form>
     
               <p className="mt-2 text-center text-sm/6 text-gray-500">
-                Não possui uma conta? {' '}
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                  Registre-se agora!
+                Já possui uma conta? {' '}
+                <a href="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  Faça Login agora!
                 </a>
               </p>
             </div>
           </div>
+        </div>
       </>
     )
   }

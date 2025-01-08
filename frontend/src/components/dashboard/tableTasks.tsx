@@ -1,4 +1,5 @@
-export default function PageVisits() {
+
+export default function tableTasks() {
   return (
     <div className="absolute top-0 left-0 w-full h-full">
         <section className="py-1 bg-blueGray-50">
