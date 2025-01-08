@@ -93,3 +93,23 @@ export const registerUser = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Erro ao registrar usuário", error });
     }
 };
+
+export const loginUser = async (req: Request, res: Response) => {
+    try {
+        const {name, email, password} = req.body as {name: string, email: string, password: string}
+
+        // Verificar se o e-mail e a senha foram enviados
+        if (!email || !password) {
+            res.status(400).json({ message: "Todos os campos (name, email, password) são obrigatórios." });
+        }
+
+        // Tentar fazer o login
+        const user = await userService.login({ email, password });
+
+        // Responder com o usuário autenticado
+        res.status(200).json(user);
+    } catch (error) {
+        // Resposta HTTP com status 500, erro de servidor
+        res.status(500).json({ message: "Erro ao logar usuário", error });
+    }
+};
