@@ -1,4 +1,5 @@
 import RegisterForm from "./components/auth/registerForm";
+import TableTasks from "./components/tableTasks";
 
 function App() {
   return (

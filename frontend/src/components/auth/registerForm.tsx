@@ -60,68 +60,68 @@ export default function registerForm() {
 
     return (
       <>
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-lg rounded-xl p-8">
-          
-          {formHeader}
-
-          <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form onSubmit={handleSubmit} className="space-y-6">
-            
-            <InputField
-              id="name"
-              label="Nome de Usuário:"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-            />
-
-            <InputField
-              id="email"
-              label="Email:"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-            />
-
-
-            <div className="text-sm">
-              <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                Esqueceu sua senha?
-              </a>
-            </div>
-
-            <InputField
-              id="password"
-              label="Senha:"
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-              autoComplete="current-password"
-            />
-
-              {errorMessage && (
-                <p className="text-red-500 text-sm">{errorMessage}</p>
-              )}
-
-              <div>
-                <button
-                  type="submit"
-                  className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Entrar
-                </button>
-              </div>
-            </form>
+          <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-lg rounded-xl p-8 my-auto">
   
-            <p className="mt-2 text-center text-sm/6 text-gray-500">
-              Não possui uma conta? {' '}
-              <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                Registre-se agora!
-              </a>
-            </p>
+            {formHeader}
+
+            <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
+              <form onSubmit={handleSubmit} className="space-y-6">
+              
+              <InputField
+                id="name"
+                label="Nome de Usuário:"
+                type="text"
+                value={formData.name}
+                onChange={handleChange}
+              />
+
+              <InputField
+                id="email"
+                label="Email:"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+              />
+
+
+              <div className="text-sm">
+                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  Esqueceu sua senha?
+                </a>
+              </div>
+
+              <InputField
+                id="password"
+                label="Senha:"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                autoComplete="current-password"
+              />
+
+                {errorMessage && (
+                  <p className="text-red-500 text-sm">{errorMessage}</p>
+                )}
+
+                <div>
+                  <button
+                    type="submit"
+                    className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Entrar
+                  </button>
+                </div>
+              </form>
+    
+              <p className="mt-2 text-center text-sm/6 text-gray-500">
+                Não possui uma conta? {' '}
+                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  Registre-se agora!
+                </a>
+              </p>
+            </div>
           </div>
-        </div>
       </>
     )
   }
