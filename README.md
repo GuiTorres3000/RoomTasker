@@ -34,4 +34,4 @@ O desafio consiste em fazer uma aplicação web para cadastro de usuário e gere
 ```
 ### Ferramentas Utilizadas:
 
-[![Linguagens](https://skillicons.dev/icons?i=nodejs, ts, express, react, tailwind)](https://skillicons.dev)
+[![Icons](https://skillicons.dev/icons?i=nodejs,ts,express,react,tailwind)](https://skillicons.dev)
