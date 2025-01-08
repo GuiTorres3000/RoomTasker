@@ -1,25 +1,26 @@
-//import { useEffect, useState } from "react"
+export default function registerForm() {
 
-export default function loginForm() {
+  const formHeader = (
+    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img
+        alt="RoomTasker"
+        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+        className="mx-auto h-12 w-auto"
+      />
+      <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+        Registre-se para entrar!
+      </h2>
+    </div>
+  );
 
     return (
       <>
         <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-white shadow-lg rounded-xl p-8">
           
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-              alt="RoomTasker"
-              src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-              className="mx-auto h-12 w-auto"
-            />
-            <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-                Registre-se para entrar!
-            </h2>
-          </div>
-  
+          {formHeader}
+
           <div className="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
             <form action="#" method="POST" className="space-y-6">
-
             
             <div>
                 <label htmlFor="name" className="block text-sm/6 font-medium text-gray-900">
