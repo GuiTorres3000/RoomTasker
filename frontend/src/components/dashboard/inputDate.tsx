@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 
-interface DateInputProps {
-  id: string;
-  width: string;
-  icon: JSX.Element;
-  placeholder?: string;
+interface InputDateProps {
+  id: string,
+  value: string,
+  onChange: ChangeEventHandler<HTMLInputElement>,
+  width: string,
+  icon: JSX.Element,
+  placeholder?: string
 }
 
-const DateInput: React.FC<DateInputProps> = ({
+const InputDate: React.FC<InputDateProps> = ({
   id,
+  value,
+  onChange,
   width,
   icon
 }) => {
@@ -24,6 +28,8 @@ const DateInput: React.FC<DateInputProps> = ({
           <input
             id={id}
             name={id}
+            value={value}
+            onChange={onChange}
             type="date"
             className="block min-w-0 grow py-1.5 pl-3 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"
           />
@@ -33,4 +39,4 @@ const DateInput: React.FC<DateInputProps> = ({
   );
 }
 
-export default DateInput;
+export default InputDate;

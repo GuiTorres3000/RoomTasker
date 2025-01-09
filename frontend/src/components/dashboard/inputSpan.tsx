@@ -1,6 +1,9 @@
+import React, { ChangeEventHandler } from 'react';
 
 interface InputSpanProps {
   id: string,
+  value: string,
+  onChange: ChangeEventHandler<HTMLInputElement>,
   width: string,
   icon: JSX.Element,
   placeholder?: string
@@ -8,6 +11,8 @@ interface InputSpanProps {
 
 const InputSpan: React.FC<InputSpanProps> = ({
   id,
+  value,
+  onChange,
   width,
   icon,
   placeholder
@@ -24,6 +29,8 @@ const InputSpan: React.FC<InputSpanProps> = ({
           <input
             id={id}
             name={id}
+            value={value}
+            onChange={onChange}
             type="text"
             placeholder={placeholder}
             className="block min-w-0 grow py-1.5 pl-3 pr-3 text-base text-gray-900 placeholder:text-gray-400 focus:outline focus:outline-0 sm:text-sm/6"

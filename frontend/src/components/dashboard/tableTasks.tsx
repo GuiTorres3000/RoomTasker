@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getTasksByUser } from '../../services/taskService';
+import { getTasksByUser, createTask } from '../../services/taskService';
 import { ClipboardDocumentCheckIcon } from '@heroicons/react/16/solid'
 import { CalendarDaysIcon } from '@heroicons/react/16/solid'
 import { PlusCircleIcon } from '@heroicons/react/16/solid'
@@ -19,6 +19,13 @@ export default function tableTasks() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const userId = '677d63cc1648dc7d708af21e';
 
+    const [formData, setFormData] = useState({
+      title: "",
+      status: false,
+      dueDate: "",
+    });
+
+    // Pega as tarefas da API
     useEffect(() => {
         const fetchTasks = async () => {
           try {
@@ -32,6 +39,40 @@ export default function tableTasks() {
         fetchTasks();
     }, [userId]);
 
+    // Função para lidar com mudanças no input (acionada no onChange)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Copia a propriedade value do estado atual do input
+    const { name, value } = e.target;
+    // Atualiza o estado do formulário
+    setFormData((prevFormData) => ({
+      // Copia o estado anterior do formulário
+      ...prevFormData,
+      // Atualiza o campo correspondente com o novo valor
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await createTask({
+        title: formData.title,
+        status: formData.status,
+        dueDate: formData.dueDate ? new Date(formData.dueDate) : undefined,
+        userId,
+      });
+      setFormData({
+        title: "",
+        status: false,
+        dueDate: "",
+      });
+      // Recarrega as tarefas após enviar
+      const updatedTasks = await getTasksByUser(userId);
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Erro ao adicionar tarefa:', error);
+    }
+  };
+
     const TableHeader = (
       <div className="rounded-t mb-0 px-4 py-3 border-0">
           <h2 className="font-semibold text-2xl text-gray-700 text-center my-4">Gerenciador de Tarefas</h2>
@@ -39,14 +80,18 @@ export default function tableTasks() {
                 <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
                     <div className="flex space-x-10 items-center justify-center">
                     <InputSpan
-                        id="task" 
-                        placeholder="Digite o título de sua tarefa" 
+                        id="title" 
+                        value={formData.title}
+                        onChange={handleChange}
                         width="w-96" 
+                        placeholder="Digite o título de sua tarefa" 
                         icon={<ClipboardDocumentCheckIcon className="w-5 h-5 text-gray-400" />} 
                     />
 
                     <InputDate
                         id="dueDate" 
+                        value={formData.dueDate}
+                        onChange={handleChange}
                         width="w-48"
                         icon={<CalendarDaysIcon className="w-5 h-5 text-gray-400" />} 
                     />
@@ -56,7 +101,7 @@ export default function tableTasks() {
                         h-9 text-sm font-semibold px-5 rounded-xl focus:outline-none focus:ring-9 focus:ring-indigo-500 transition duration-150 ease-in-out
                         flex items-center space-x-2 group"
                         type="button"
-                        onClick={() => console.log("Informações enviadas!")}
+                        onClick={handleSubmit}
                     >
                         <PlusCircleIcon className="w-5 h-5 mr-2 text-gray-400 group-hover:text-indigo-600 transition duration-600 ease-in-out" /> Adicionar
                     </button>
