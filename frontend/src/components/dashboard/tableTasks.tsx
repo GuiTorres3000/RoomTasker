@@ -1,7 +1,32 @@
+import { useEffect, useState } from 'react';
+import { getTasksByUser } from '../../services/taskService';
+
+interface Task {
+    id: string,
+    title: string,
+    status: boolean
+  }
 
 export default function tableTasks() {
+
+    const [tasks, setTasks] = useState<Task[]>([]);
+    const userId = '677d63cc1648dc7d708af21e';
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+          try {
+            const data = await getTasksByUser(userId);
+            setTasks(data);
+          } catch (error) {
+            console.error('Erro ao carregar tarefas:', error);
+          }
+        };
+    
+        fetchTasks();
+    }, [userId]);
+
   return (
-    <div className="absolute top-0 left-0 w-full h-full">
+    <div className="min-h-screen items-center justify-center px-8 py-2 lg:px-2 bg-gray-100">
         <section className="py-1 bg-blueGray-50">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -21,96 +46,28 @@ export default function tableTasks() {
                 <thead>
                     <tr>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Page name
+                        Titulo 
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Visitors
+                        Status
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Unique users
-                    </th>
-                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Bounce rate
+                        Data
                     </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                        /argon/
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        4,569
-                    </td>
-                    <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        340
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                        46.53%
-                    </td>
+                {tasks.map((task) => (
+                    <tr key={task.id}>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {task.title}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {task.status}
+                      </td>
                     </tr>
-                    <tr>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                        /argon/index.html
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        3,985
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        319
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                        46.53%
-                    </td>
-                    </tr>
-                    <tr>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                        /argon/charts.html
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        3,513
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        294
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-arrow-down text-orange-500 mr-4"></i>
-                        36.49%
-                    </td>
-                    </tr>
-                    <tr>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                        /argon/tables.html
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        2,050
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        147
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                        50.87%
-                    </td>
-                    </tr>
-                    <tr>
-                    <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700">
-                        /argon/profile.html
-                    </th>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        1,795
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        190
-                    </td>
-                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        <i className="fas fa-arrow-down text-red-500 mr-4"></i>
-                        46.53%
-                    </td>
-                    </tr>
+                  ))}
                 </tbody>
                 </table>
             </div>

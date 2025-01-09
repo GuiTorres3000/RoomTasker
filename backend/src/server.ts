@@ -2,6 +2,7 @@
 
 import express from "express";
 import { userRoutes } from "./routes/userRoutes";
+import { taskRoutes } from "./routes/taskRoutes";
 import cors from "cors";
 
 // Cria uma instância do Express
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 
 // Usa as rotas importadas
 userRoutes(app);
+taskRoutes(app);
 
 // Inicia o servidor na porta 3000
 const PORT = 3000;

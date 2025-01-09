@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import TableTask from "./tableTasks";
+
 const API_URL = "http://localhost:3000";
 
 interface User {
@@ -10,7 +12,7 @@ interface User {
     email: string;
 }
 
-export default function UserPage() {
+export default function dashboard() {
   const { id } = useParams(); // Pega o ID do usuário da URL
   const [user, setUser] = useState<User | null>(null); // Estado para armazenar os dados do usuário
   const [loading, setLoading] = useState(true); // Estado para indicar carregamento
@@ -37,10 +39,6 @@ export default function UserPage() {
   if (!user) return <p>Usuário não encontrado!</p>;
 
   return (
-    <div className="container">
-      <h1>Bem-vindo, {user.name}!</h1>
-      <p>Email: {user.email}</p>
-      {/* Adicione outros detalhes do usuário conforme necessário */}
-    </div>
+      <TableTask/>
   );
 }

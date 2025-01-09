@@ -38,10 +38,10 @@ export default function loginForm() {
       // Redireciona para a página do usuário e passa a URL da API
       navigate(`/dashboard/${response.id}`);
 
-      console.log("Usuário registrado com sucesso:", response);
+      console.log("Usuário logado com sucesso:", response);
       setErrorMessage(null); // Limpa mensagem de erro ao sucesso
     } catch (error) {
-      setErrorMessage("Erro ao registrar o usuário. Tente novamente.");
+      setErrorMessage("Erro ao logar com usuário. Tente novamente.");
     }
   };
 

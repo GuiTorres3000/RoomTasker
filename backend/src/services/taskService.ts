@@ -20,8 +20,8 @@ export class TaskService {
                 data: {
                     title,
                     status,
-                    dueDate,
                     userId, // Relacionamento com o usuário
+                    dueDate,
                 },
             });
     

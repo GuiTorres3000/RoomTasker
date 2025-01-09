@@ -6,15 +6,18 @@ const taskService = new TaskService();
 export const createTask = async (req: Request, res: Response): Promise<any>  => {
     try {
         // Pegar as informações do body
+        console.log("Começando")
         const { title, status, userId } = req.body as { title: string, status: boolean, userId: string };
+        console.log("Isso aqui:", title, status, userId )
 
         // Verificar se os campos obrigatórios não estão nulos ou vazios
-        if (!title || !status || !userId) {
-            return res.status(400).json({ message: "Todos os campos (title, status, userId) são obrigatórios." });
+        if (!title || !userId) {
+            return res.status(400).json({ message: "Todos os campos (title, e userId) são obrigatórios." });
         }else{
+            console.log("Vou fazer a criação")
             // Criar a tarefa usando o serviço
             const task = await taskService.create({ title, status, userId });
-
+            console.log("Criei")
             // Resposta com a tarefa criada
             res.status(201).json(task);
         }
@@ -41,7 +44,7 @@ export const getTasksByTitle = async (req: Request, res: Response) => {
 export const getTasksByUser = async (req: Request, res: Response) => {
     try {
         // Pegando o userId da URL
-        const { userId } = req.params as {userId: string };  
+        const { userId } = req.params as {userId: string };
         // Pegando uma lista das tarefas
         const tasks = await taskService.getTasksByUser(userId);
 
