@@ -76,39 +76,51 @@ export default function tableTasks() {
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-xl">
                 {TableHeader}
 
-            <div className="block w-full overflow-x-auto">
-                <table className="items-center bg-transparent w-full border-collapse">
-                <thead>
-                    <tr>
-                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+              <div className="block w-full overflow-x-auto">
+                  <table className="items-center bg-transparent w-full border-collapse">
+                  <thead>
+                      <tr>
+                      <th className="px-6 bg-blueGray-50 text-gray-700 align-middle border border-solid border-blueGray-100 py-3 text-base border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        style={{ width: '40%' }}
+                      >
                         Titulo 
-                    </th>
-                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      </th>
+                      <th className="px-6 bg-blueGray-50 text-gray-700 align-middle border border-solid border-blueGray-100 py-3 text-base border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        style={{ width: '10%' }}
+                      >
                         Data
-                    </th>
-                    <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                      </th>
+                      <th className="px-6 bg-blueGray-50 text-gray-700 align-middle border border-solid border-blueGray-100 py-3 text-base border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        style={{ width: '30%' }}
+                      >
                         Status
-                    </th>
-                    </tr>
-                </thead>
+                      </th>
 
-                <tbody>
-                {tasks.map((task) => (
-                    <tr key={task.id}>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {task.title}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {task.dateDue ? task.dateDue.toLocaleDateString() : "Data não disponível"}
-                      </td>
-                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {task.status ? "Concluído" : "Não Concluído"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-                </table>
-            </div>
+                      <th className="px-6 bg-blueGray-50 text-gray-700 align-middle border border-solid border-blueGray-100 py-3 text-base border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+                        style={{ width: '20%' }}
+                      >
+                        Ações
+                      </th>
+                      </tr>
+                  </thead>
+
+                  <tbody>
+                  {tasks.map((task) => (
+                      <tr key={task.id}>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                          {task.title}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                          {task.dateDue ? task.dateDue.toLocaleDateString() : "Data não disponível"}
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                          {task.status ? "Concluído" : "Não Concluído"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  </table>
+              </div>
             </div>
         </div>
 
