@@ -1,10 +1,17 @@
 import { useEffect, useState } from 'react';
 import { getTasksByUser } from '../../services/taskService';
+import { ClipboardDocumentCheckIcon } from '@heroicons/react/16/solid'
+import { CalendarDaysIcon } from '@heroicons/react/16/solid'
+import { PlusCircleIcon } from '@heroicons/react/16/solid'
+import InputSpan from "./inputSpan";
+import InputDate from "./inputDate";
+
 
 interface Task {
     id: string,
     title: string,
-    status: boolean
+    status: boolean,
+    dateDue: Date
   }
 
 export default function tableTasks() {
@@ -25,21 +32,49 @@ export default function tableTasks() {
         fetchTasks();
     }, [userId]);
 
+    const TableHeader = (
+      <div className="rounded-t mb-0 px-4 py-3 border-0">
+          <h2 className="font-semibold text-2xl text-gray-700 text-center my-4">Gerenciador de Tarefas</h2>
+            <div className="flex flex-wrap items-center">
+                <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
+                    <div className="flex space-x-10 items-center justify-center">
+                    <InputSpan
+                        id="task" 
+                        placeholder="Digite o título de sua tarefa" 
+                        width="w-96" 
+                        icon={<ClipboardDocumentCheckIcon className="w-5 h-5 text-gray-400" />} 
+                    />
+
+                    <InputDate
+                        id="dueDate" 
+                        width="w-48"
+                        icon={<CalendarDaysIcon className="w-5 h-5 text-gray-400" />} 
+                    />
+
+                    <button 
+                        className="bg-white text-gray-700 border border-gray-400 hover:bg-white hover:text-indigo-600 hover:border-indigo-600 
+                        h-9 text-sm font-semibold px-5 rounded-xl focus:outline-none focus:ring-9 focus:ring-indigo-500 transition duration-150 ease-in-out
+                        flex items-center space-x-2 group"
+                        type="button"
+                        onClick={() => console.log("Informações enviadas!")}
+                    >
+                        <PlusCircleIcon className="w-5 h-5 mr-2 text-gray-400 group-hover:text-indigo-600 transition duration-600 ease-in-out" /> Adicionar
+                    </button>
+                    </div>
+               </div>
+               <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+                   <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
+               </div>
+           </div>
+       </div>
+  );
+
   return (
     <div className="min-h-screen items-center justify-center px-8 py-2 lg:px-2 bg-gray-100">
         <section className="py-1 bg-blueGray-50">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
-            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-            <div className="rounded-t mb-0 px-4 py-3 border-0">
-                <div className="flex flex-wrap items-center">
-                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                    <h3 className="font-semibold text-base text-blueGray-700">Page Visits</h3>
-                </div>
-                <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                    <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
-                </div>
-                </div>
-            </div>
+            <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-xl">
+                {TableHeader}
 
             <div className="block w-full overflow-x-auto">
                 <table className="items-center bg-transparent w-full border-collapse">
@@ -49,10 +84,10 @@ export default function tableTasks() {
                         Titulo 
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Status
+                        Data
                     </th>
                     <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                        Data
+                        Status
                     </th>
                     </tr>
                 </thead>
@@ -64,7 +99,10 @@ export default function tableTasks() {
                         {task.title}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        {task.status}
+                        {task.dateDue ? task.dateDue.toLocaleDateString() : "Data não disponível"}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                        {task.status ? "Concluído" : "Não Concluído"}
                       </td>
                     </tr>
                   ))}
@@ -78,9 +116,6 @@ export default function tableTasks() {
             <div className="container mx-auto px-4">
             <div className="flex flex-wrap items-center md:justify-between justify-center">
                 <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-                <div className="text-sm text-blueGray-500 font-semibold py-1">
-                    Made with <a href="https://www.creative-tim.com/product/notus-js" className="text-blueGray-500 hover:text-gray-800" target="_blank" rel="noopener noreferrer">Notus JS</a> by <a href="https://www.creative-tim.com" className="text-blueGray-500 hover:text-blueGray-800" target="_blank" rel="noopener noreferrer">Creative Tim</a>.
-                </div>
                 </div>
             </div>
             </div>

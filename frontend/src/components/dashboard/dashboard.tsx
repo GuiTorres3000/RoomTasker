@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import TableTask from "./tableTasks";
+import TableTasks from "./tableTasks";
 
 const API_URL = "http://localhost:3000";
 
@@ -39,6 +39,8 @@ export default function dashboard() {
   if (!user) return <p>Usuário não encontrado!</p>;
 
   return (
-      <TableTask/>
+      <>
+      <TableTasks/>
+      </>
   );
 }
