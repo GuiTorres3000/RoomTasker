@@ -1,4 +1,4 @@
-import bcryptjs from 'bcryptjs';
+//import bcryptjs from 'bcryptjs';
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
@@ -103,33 +103,32 @@ export class UserService {
       } 
   }
 
-  // Login de Usuário
-  async login({email, password}: {email: string, password: string}) {
-    try {
-        // Procurar o usuário pelo e-mail
-        const user = await prisma.user.findUnique({
-            where: { email },
-        });
+    // Login de Usuário
+    async login({email, password}: {email: string, password: string}) {
+        try {
+            // Procurar o usuário pelo e-mail
+            const user = await prisma.user.findUnique({
+                where: { email },
+            });
 
-        if (!user) {
-            throw new Error("Usuário não encontrado");
-        }
+            if (!user) {
+                throw new Error("Usuário não encontrado");
+            }
 
-        // Verificar se a senha fornecida corresponde ao hash armazenado
-        /*
-        const isPasswordValid = await bcryptjs.compare(password, user.password);
+            // Verificar se a senha fornecida corresponde ao hash armazenado
+            /*
+            const isPasswordValid = await bcryptjs.compare(password, user.password);
 
-        if (!isPasswordValid) {
-            throw new Error("Senha inválida");
+            if (!isPasswordValid) {
+                throw new Error("Senha inválida");
+            }
+            */
+            if(password !== user.password) throw new Error("Senha inválida");
+            else{
+            return user;
+            }
+        } catch (error) {
+            throw new Error('Erro ao fazer login');
         }
-        */
-        if(password !== user.password) throw new Error("Senha inválida");
-        else{
-          return user;
-        }
-    } catch (error) {
-        throw new Error('Erro ao fazer login');
     }
-}
-
 }

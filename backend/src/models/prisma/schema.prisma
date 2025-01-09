@@ -18,9 +18,30 @@ model user{
   name String
   email String @unique
   password String
+
+  // Relacionamento com Task
+  tasks task[]
   // Variáveis de controle
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
   @@map("users")
 }
+
+model task{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  status Boolean @default(false)
+  dueDate DateTime?
+
+  // Relacionamento com User
+  user user @relation(fields: [userId], references: [id])
+  userId String @db.ObjectId
+  
+  // Variáveis de controle
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@map("tasks")
+}
+

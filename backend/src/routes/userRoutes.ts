@@ -1,6 +1,5 @@
 import { Express, Request, Response } from "express";
 import { createUser, getUser, updateUser, deleteUser, loginUser } from "../controllers/userController";
-import { register } from "module";
 
 // Mapeia as endpoints de usuário para o Controlador
 
