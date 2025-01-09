@@ -11,7 +11,7 @@ interface Task {
     id: string,
     title: string,
     status: boolean,
-    dateDue: Date
+    dueDate: Date
   }
 
 export default function tableTasks() {
@@ -107,11 +107,11 @@ export default function tableTasks() {
                   <tbody>
                   {tasks.map((task) => (
                       <tr key={task.id}>
-                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
                           {task.title}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
-                          {task.dateDue ? task.dateDue.toLocaleDateString() : "Data não disponível"}
+                          {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Data não informada"}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
                           {task.status ? "Concluído" : "Não Concluído"}

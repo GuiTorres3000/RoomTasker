@@ -6,9 +6,7 @@ const taskService = new TaskService();
 export const createTask = async (req: Request, res: Response): Promise<any>  => {
     try {
         // Pegar as informações do body
-        console.log("Começando")
-        const { title, status, userId } = req.body as { title: string, status: boolean, userId: string };
-        console.log("Isso aqui:", title, status, userId )
+        const { title, status, userId, dueDate} = req.body as { title: string, status: boolean, userId: string, dueDate?: Date };
 
         // Verificar se os campos obrigatórios não estão nulos ou vazios
         if (!title || !userId) {
@@ -16,7 +14,7 @@ export const createTask = async (req: Request, res: Response): Promise<any>  => 
         }else{
             console.log("Vou fazer a criação")
             // Criar a tarefa usando o serviço
-            const task = await taskService.create({ title, status, userId });
+            const task = await taskService.create({ title, status, userId, dueDate });
             console.log("Criei")
             // Resposta com a tarefa criada
             res.status(201).json(task);
