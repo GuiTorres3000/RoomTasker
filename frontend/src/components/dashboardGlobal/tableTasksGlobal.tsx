@@ -51,10 +51,12 @@ export default function TableTasks() {
 
     // Filtra as tarefas com base no título
     const filtered = value
-      ? tasks.filter((task) =>
-          task.title.toLowerCase().includes(value.toLowerCase())
-        )
-      : tasks; // Se não houver filtro (campo vazio), exibe todas as tarefas
+      ? tasks.filter((task) => {
+          const userName = users[task.userId]?.toLowerCase() || "";
+          return userName.includes(value.toLowerCase());
+        })
+        // Exige todas as tarefas se não tiver nenhum filtro
+      : tasks; 
     setFilteredTasks(filtered);
   };
 
