@@ -39,12 +39,25 @@ export const getTasksByTitle = async (req: Request, res: Response) => {
     }
 };
 
+// READ
 export const getTasksByUser = async (req: Request, res: Response) => {
     try {
         // Pegando o userId da URL
         const { userId } = req.params as {userId: string };
         // Pegando uma lista das tarefas
         const tasks = await taskService.getTasksByUser(userId);
+
+        res.status(200).json(tasks);
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao obter tarefas do usuário", error });
+    }
+};
+
+// READ
+export const getAllTasks = async (req: Request, res: Response) => {
+    try {
+        // Pegando uma lista das tarefas
+        const tasks = await taskService.getAllTasks();
 
         res.status(200).json(tasks);
     } catch (error) {

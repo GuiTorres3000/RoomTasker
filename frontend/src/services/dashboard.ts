@@ -11,3 +11,4 @@ export const getUser = async (id: string) => {
         throw error;
     }
 };
+

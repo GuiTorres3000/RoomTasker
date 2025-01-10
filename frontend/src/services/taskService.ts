@@ -41,6 +41,16 @@ export const getTasksByTitle = async (userId: string) => {
     }
 };
 
+export const getAllTasks = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/tasks/`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar tarefas:', error);
+        throw error;
+    }
+};
+
 // Atualizar tarefa
 export const updateTask = async (id: string, {title, status, dueDate, userId}: userProps) => {
     try {

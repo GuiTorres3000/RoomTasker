@@ -13,13 +13,16 @@ export interface Task {
     dueDate: Date
   }
 
-export default function tableTasks() {
+interface TableTasksProps {
+    userId: string;
+}
+
+export default function tableTasks({userId}: TableTasksProps) {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [statusFilter, setStatusFilter] = useState<boolean | null>(null);
-  const userId = '677d63cc1648dc7d708af21e';
 
     const [formData, setFormData] = useState({
       title: "",

@@ -42,7 +42,7 @@ export default function dashboardGlobal() {
   return (
       <>
       <Navbar userName={user.name} />
-      <TableTasksGlobal/>
+      {typeof id === "string" && <TableTasksGlobal userId={id} />}
       </>
   );
 }

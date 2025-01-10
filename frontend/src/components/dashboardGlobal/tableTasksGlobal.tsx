@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getTasksByUser } from '../../services/taskService';
+import { getAllTasks } from '../../services/taskService';
 import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
 import InputSpan from "../dashboard/inputSpan";
 import { getUser } from '../../services/dashboard';
@@ -12,19 +12,18 @@ export interface Task {
   userId: string
 }
 
-export default function TableTasks() {
+export default function TableTasksGlobal() {
 
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<string>("");
   const [users, setUsers] = useState<{[key: string]: string}>({});
-  const userId = '677d63cc1648dc7d708af21e';
 
   // Pega as tarefas da API
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const data = await getTasksByUser(userId);
+        const data = await getAllTasks();
         setTasks(data);
         setFilteredTasks(data);
 
@@ -43,7 +42,7 @@ export default function TableTasks() {
     };
 
     fetchTasks();
-  }, [userId]);
+  }, []);
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

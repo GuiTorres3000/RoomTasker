@@ -42,7 +42,7 @@ export default function dashboard() {
   return (
       <>
       <Navbar userName={user.name} />
-      <TableTasks/>
+      {typeof id === "string" && <TableTasks userId={id} />}
       </>
   );
 }

@@ -72,6 +72,17 @@ export class TaskService {
         }
     }
 
+    // READ (todos as tarefas por usuário)
+    async getAllTasks() {
+        try {
+            const tasks = await prisma.task.findMany();
+    
+            return tasks;
+        } catch (error) {
+            throw new Error("Erro ao obter tarefas!");
+        }
+    }
+
     // UPDATE
     async update(id: string, { title, status, userId, dueDate }: taskProps) {
         try {
