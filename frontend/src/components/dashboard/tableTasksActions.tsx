@@ -10,10 +10,13 @@ interface TableActionsProps {
   id: string,
   userId: string,
   setTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+  setFilteredTasks: React.Dispatch<React.SetStateAction<Task[]>>,
+  filter: string,
   task?: Task
 }
 
-const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
+const TableActions = ({ id, userId, setTasks, setFilteredTasks, filter, task }: TableActionsProps) => {
+
 
   // Exibição do 
   const [isEditing, setIsEditing] = useState(false); // Controla o modo de edição
@@ -23,16 +26,24 @@ const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
 
   const handleDelete = async () => {
     try {
-        // Deleta a tarefa
-        await deleteTask(id); 
-        // Recarrega as tarefas após deletar
-        const updatedTasks = await getTasksByUser(userId);
-        setTasks(updatedTasks); // Atualiza as tarefas no estado
+      await deleteTask(id); 
+      const updatedTasks = await getTasksByUser(userId);
+      setTasks(updatedTasks);
+  
+      // Refiltra as tarefas com base no filtro atual
+      if (typeof filter === 'string' && filter) {
+        const filtered = updatedTasks.filter((task: Task) =>
+          task.title.toLowerCase().includes(filter.toLowerCase())
+        );
+        setFilteredTasks(filtered);
+      } else {
+        setFilteredTasks(updatedTasks);
+      }
     } catch (error) {
-        console.error('Erro ao deletar tarefa:', error);
+      console.error('Erro ao deletar tarefa:', error);
     }
   };
-
+  
   const handleEdit = async () => {
     try {
       const updatedTaskData = {
@@ -41,16 +52,26 @@ const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
         dueDate: editedTask.dueDate,
         userId,
       };
-
+  
       await updateTask(id, updatedTaskData); // Chamada à função existente
       const updatedTasks = await getTasksByUser(userId); // Recarrega as tarefas
       setTasks(updatedTasks);
-      setIsEditing(false); // Sai do modo de edição
+  
+       // Refiltra as tarefas com base no filtro atual
+       if (typeof filter === 'string' && filter) {
+        const filtered = updatedTasks.filter((task: Task) =>
+          task.title.toLowerCase().includes(filter.toLowerCase())
+        );
+        setFilteredTasks(filtered);
+      } else {
+        setFilteredTasks(updatedTasks);
+      }
+      
+      setIsEditing(false);
     } catch (error) {
-      console.error('Erro ao editar tarefa:', error);
+      console.error('Erro ao deletar tarefa:', error);
     }
   };
-
   return (
     <div className="flex space-x-2">
         <button

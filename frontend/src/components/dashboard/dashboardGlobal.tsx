@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import TableTasks from "./tableTasks";
+import TableTasksGlobal from "./tableTasksGlobal";
 import Navbar from "./navbar";
 
 const API_URL = "http://localhost:3000";
@@ -13,7 +13,7 @@ interface User {
     email: string;
 }
 
-export default function dashboard() {
+export default function dashboardGlobal() {
   const { id } = useParams(); // Pega o ID do usuário da URL
   const [user, setUser] = useState<User | null>(null); // Estado para armazenar os dados do usuário
   const [loading, setLoading] = useState(true); // Estado para indicar carregamento
@@ -42,7 +42,7 @@ export default function dashboard() {
   return (
       <>
       <Navbar userName={user.name} />
-      <TableTasks/>
+      <TableTasksGlobal/>
       </>
   );
 }

@@ -2,9 +2,9 @@ import { Disclosure} from '@headlessui/react'
 import { useLocation } from "react-router-dom";
 
 const navigation = [
-    { name: 'Seu Dashboard', href: '#', current: true },
-    { name: 'Dashboard Global', href: '/global', current: false },
-];
+    { name: 'Seu Dashboard', href: '/dashboard', current: false },
+    { name: 'Dashboard Global', href: '/dashboard/global', current: false },
+  ];
   
   function classNames(...classes: any) { 
     return classes.filter(Boolean).join(" ");
@@ -17,8 +17,12 @@ interface NavbarProps {
 
 export default function navbar({ userName }: NavbarProps) {
 
-    const location = useLocation(); // Obtém a URL atual
-    const currentPath = location.pathname; // Caminho atual, ex: "/dashboard"
+    // URL atual
+    const location = useLocation(); 
+    // Caminho atual
+    const currentPath = location.pathname; 
+    // Pegando o id do usuário
+    const userId = currentPath.split('/')[2];
 
     return (
         <Disclosure as="nav" className="relative z-10 bg-white shadow-lg">
@@ -36,21 +40,31 @@ export default function navbar({ userName }: NavbarProps) {
               </div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href.startsWith('/') ? `${currentPath}${item.href}` : item.href}
-                    aria-current={item.current ? 'page' : undefined}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-200 text-gray-900'
-                        : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900',
-                      'rounded-md px-3 py-2 text-sm font-medium'
-                    )}
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                {navigation.map((item) => {
+                  // Gerando a URL completa para o link
+                  const href = item.href.includes('/dashboard')
+                    ? `${item.href.startsWith('/dashboard/global') ? `/dashboard/${userId}/global` : `/dashboard/${userId}`}`
+                    : item.href;
+
+                  // Determinando se o item é o atual
+                  const isCurrent = currentPath === href;
+
+                  return (
+                    <a
+                      key={item.name}
+                      href={href}
+                      aria-current={isCurrent ? 'page' : undefined}
+                      className={classNames(
+                        isCurrent
+                          ? 'bg-gray-200 text-gray-900'
+                          : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900',
+                        'rounded-md px-3 py-2 text-sm font-medium'
+                      )}
+                    >
+                      {item.name}
+                    </a>
+                  );
+                })}
                 </div>
               </div>
             </div>

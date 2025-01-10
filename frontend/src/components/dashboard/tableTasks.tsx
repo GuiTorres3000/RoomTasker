@@ -70,6 +70,15 @@ export default function tableTasks() {
       // Recarrega as tarefas após enviar
       const updatedTasks = await getTasksByUser(userId);
       setTasks(updatedTasks);
+
+      if (filter) {
+        const filtered = updatedTasks.filter((task: Task) =>
+          task.title.toLowerCase().includes(filter.toLowerCase())
+        );
+        setFilteredTasks(filtered);
+      } else {
+        setFilteredTasks(updatedTasks);
+      }
     } catch (error) {
       console.error('Erro ao adicionar tarefa:', error);
     }
@@ -174,7 +183,7 @@ export default function tableTasks() {
                   </thead>
 
                   <tbody>
-                  {filteredTasks.map((task) => (
+                  {filteredTasks.map((task: Task) => (
                       <tr key={task.id}>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
                           {task.title}
@@ -187,7 +196,7 @@ export default function tableTasks() {
                         </td>
 
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
-                          <TableActions id={task.id} userId={userId} setTasks={setTasks} />
+                          <TableActions id={task.id} userId={userId} setFilteredTasks={setFilteredTasks} filter={filter} setTasks={setTasks} />
                         </td>
                       </tr>
                     ))}
