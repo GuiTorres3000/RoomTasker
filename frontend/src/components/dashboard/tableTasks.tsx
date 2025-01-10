@@ -5,9 +5,10 @@ import { CalendarDaysIcon } from '@heroicons/react/16/solid'
 import { PlusCircleIcon } from '@heroicons/react/16/solid'
 import InputSpan from "./inputSpan";
 import InputDate from "./inputDate";
+import TableActions from './tableTasksActions';
 
 
-interface Task {
+export interface Task {
     id: string,
     title: string,
     status: boolean,
@@ -160,6 +161,10 @@ export default function tableTasks() {
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
                           {task.status ? "Concluído" : "Não Concluído"}
+                        </td>
+
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
+                          <TableActions id={task.id} userId={userId} setTasks={setTasks} />
                         </td>
                       </tr>
                     ))}

@@ -30,3 +30,14 @@ export const getTasksByUser = async (userId: string) => {
         throw error;
     }
 };
+
+// Buscar tarefas do usuário
+export const deleteTask = async (id: string) => {
+    try {
+        const response = await axios.delete(`${API_URL}/task/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar tarefas:', error);
+        throw error;
+    }
+};

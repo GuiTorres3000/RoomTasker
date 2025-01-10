@@ -16,5 +16,5 @@ export const taskRoutes = (app: Express) => {
     app.put("/task/:id", (req: Request, res: Response) => updateTask(req, res));
 
     // Deletar uma tarefa existente
-    app.delete("/tasks/:id", (req: Request, res: Response) => deleteTask(req, res));
+    app.delete("/task/:id", (req: Request, res: Response) => deleteTask(req, res));
 };
