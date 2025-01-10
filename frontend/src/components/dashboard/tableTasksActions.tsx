@@ -1,4 +1,4 @@
-import { TrashIcon, PencilIcon } from '@heroicons/react/20/solid'; // ícone de lixo quadrado
+import { TrashIcon, PencilSquareIcon, CalendarDaysIcon } from '@heroicons/react/20/solid'; // ícone de lixo quadrado
 import { deleteTask, updateTask, getTasksByUser} from '../../services/taskService';
 import { Task } from './tableTasks';
 import { useState } from 'react';
@@ -64,7 +64,7 @@ const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
           className="bg-yellow-400 text-white p-1 rounded-md hover:bg-yellow-500 transition duration-200 ease-in-out"
           onClick={() => setIsEditing(!isEditing)} // Alterna o modo de edição
         >
-            <PencilIcon className="w-4 h-4" />
+            <PencilSquareIcon className="w-4 h-4" />
         </button>
 
         
@@ -87,7 +87,7 @@ const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
                     setEditedTask({ ...editedTask, title: e.target.value })
                   }
                   width="w-full"
-                  icon={<PencilIcon className="w-5 h-5" />}
+                  icon={<PencilSquareIcon className="w-4 h-4 text-gray-500" />}
                   placeholder="Título da tarefa"
                 />
                 <InputDate
@@ -100,7 +100,7 @@ const TableActions = ({ id, userId, setTasks, task }: TableActionsProps) => {
                     })
                   }
                   width="w-full"
-                  icon={<PencilIcon className="w-5 h-5" />}
+                  icon={<CalendarDaysIcon className="w-4 h-4 text-gray-500" />}
                 />
                 <div className="flex justify-between mt-4">
                   <button
