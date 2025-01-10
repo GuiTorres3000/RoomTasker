@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import TableTasks from "./tableTasks";
+import Navbar from "./navbar";
 
 const API_URL = "http://localhost:3000";
 
@@ -35,11 +36,12 @@ export default function dashboard() {
     fetchUser();
   }, [id]);
 
-  if (loading) return <p>Carregando...</p>;
-  if (!user) return <p>Usuário não encontrado!</p>;
+  if (loading) return <p className="justify-center text-center text-2xl ">Carregando...</p>;
+  if (!user) return <p className="justify-center text-center text-2xl ">Usuário não encontrado...!</p>;
 
   return (
       <>
+      <Navbar userName={user.name} />
       <TableTasks/>
       </>
   );

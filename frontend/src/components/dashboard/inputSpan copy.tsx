@@ -18,8 +18,7 @@ const InputSpan: React.FC<InputSpanProps> = ({
   placeholder
 }) => {
   return (
-    <div>
-      <div className={`${width}`}>
+      <div className= {`${width}`}>
         <div className="flex items-center rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
           
           <span className="flex items-center justify-center w-9 min-w-9 h-9 bg-gray-200 text-indigo-600 rounded-l-md">
@@ -37,7 +36,6 @@ const InputSpan: React.FC<InputSpanProps> = ({
           />
         </div>
       </div>
-    </div>
   )
 }
 

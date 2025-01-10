@@ -94,12 +94,12 @@ export default function tableTasks() {
             <hr/>
             <div className="flex flex-wrap items-center">
                 <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
-                    <div className="flex my-2 items-center justify-center ">
+                    <div className="flex my-2 items-center justify-center w-full">
                       <InputSpan
                         id="taskFilter"
                         value={filter}
                         onChange = {handleFilterChange}
-                        width="w-96"
+                        width="w-2/3"
                         placeholder="Filtrar tarefas pelo título"
                         icon={<MagnifyingGlassIcon className="w-5 h-5 text-gray-400" />}
                       />
@@ -138,7 +138,8 @@ export default function tableTasks() {
   );
 
   return (
-    <div className="min-h-screen items-center justify-center px-8 py-2 lg:px-2 bg-gray-100">
+    <div className="items-center justify-center px-8 py-2 lg:px-2 bg-gray-100"
+      style={{ minHeight: `calc(100vh - 5rem)` }} >
         <section className="py-1 bg-blueGray-50">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4 mx-auto mt-24">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-xl">
