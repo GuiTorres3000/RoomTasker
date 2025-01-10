@@ -73,7 +73,7 @@ export class TaskService {
     }
 
     // UPDATE
-    async update(id: string, { title, status, dueDate }: taskProps) {
+    async update(id: string, { title, status, userId, dueDate }: taskProps) {
         try {
             const task = await prisma.task.update({
                 where: { id },

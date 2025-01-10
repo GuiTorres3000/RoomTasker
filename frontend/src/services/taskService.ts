@@ -32,6 +32,17 @@ export const getTasksByUser = async (userId: string) => {
 };
 
 // Buscar tarefas do usuário
+export const updateTask = async (id: string, {title, status, dueDate, userId}: userProps) => {
+    try {
+        const response = await axios.put(`${API_URL}/task/${id}`, {title, status, dueDate, userId});
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao atualizar tarefas:', error);
+        throw error;
+    }
+};
+
+// Buscar tarefas do usuário
 export const deleteTask = async (id: string) => {
     try {
         const response = await axios.delete(`${API_URL}/task/${id}`);

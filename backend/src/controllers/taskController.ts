@@ -55,10 +55,10 @@ export const getTasksByUser = async (req: Request, res: Response) => {
 // UPDATE
 export const updateTask = async (req: Request, res: Response) => {
     try {
-        const { id } = req.params;
-        const { title, status, dueDate, userId } = req.body;
+        const { id } = req.params; 
+        const { title, status, userId, dueDate} = req.body as { title: string, status: boolean, userId: string, dueDate?: Date };
 
-        const updatedTask = await taskService.update(id, { title, status, dueDate, userId });
+        const updatedTask = await taskService.update(id, { title, status, userId, dueDate });
         res.status(200).json(updatedTask);
     } catch (error) {
         res.status(500).json({ message: "Erro ao atualizar tarefa", error });
