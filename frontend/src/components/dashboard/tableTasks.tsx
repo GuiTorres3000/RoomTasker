@@ -192,7 +192,7 @@ export default function tableTasks() {
                           {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Data não informada"}
                         </td>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
-                          {task.status ? "Concluído" : "Não Concluído"}
+                          {task.status ? "Concluído" : "Incompleto"}
                         </td>
 
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">

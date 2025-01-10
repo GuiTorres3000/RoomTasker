@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import TableTasksGlobal from "./tableTasksGlobal";
-import Navbar from "./navbar";
+import Navbar from "../dashboard/navbar";
 
 const API_URL = "http://localhost:3000";
 

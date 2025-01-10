@@ -4,7 +4,7 @@ import LoginForm from "./components/auth/loginForm";
 // Componentes da Página
 //import TableTasks from "./components/dashboard/tableTasks";
 import Dashboard from "./components/dashboard/dashboard";
-import DashboardGlobal from "./components/dashboard/dashboardGlobal";
+import DashboardGlobal from "./components/dashboardGlobal/dashboardGlobal";
 // Redirecionamento com React Router
 import { BrowserRouter, Route, Routes} from "react-router-dom";
 

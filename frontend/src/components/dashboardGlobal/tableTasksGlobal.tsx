@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { getTasksByUser } from '../../services/taskService';
 import { MagnifyingGlassIcon } from '@heroicons/react/16/solid';
-import InputSpan from "./inputSpan";
+import InputSpan from "../dashboard/inputSpan";
+import { getUser } from '../../services/dashboard';
 
 export interface Task {
   id: string,
   title: string,
+  dueDate: Date,
   status: boolean,
-  dueDate: Date
+  userId: string
 }
 
 export default function TableTasks() {
@@ -15,6 +17,7 @@ export default function TableTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<string>("");
+  const [users, setUsers] = useState<{[key: string]: string}>({});
   const userId = '677d63cc1648dc7d708af21e';
 
   // Pega as tarefas da API
@@ -24,6 +27,16 @@ export default function TableTasks() {
         const data = await getTasksByUser(userId);
         setTasks(data);
         setFilteredTasks(data);
+
+        // Buscar os nomes dos usuários
+        const userNames: {[key: string]: string} = {};
+        for (const task of data) {
+          if (!userNames[task.userId]) {
+            const user = await getUser(task.userId);
+            userNames[task.userId] = user.name; // Supondo que a resposta de getUser tem o campo 'name'
+          }
+        }
+        setUsers(userNames);
       } catch (error) {
         console.error('Erro ao carregar tarefas:', error);
       }
@@ -93,6 +106,11 @@ export default function TableTasks() {
                     >
                       Status
                     </th>
+                    <th className="px-6 bg-blueGray-50 text-gray-700 align-middle border border-solid border-blueGray-100 py-3 text-base border-l-0 border-r-0 whitespace-nowrap font-semibold text-right"
+                      style={{ width: '20%' }}
+                    >
+                      Usuário
+                    </th>
                   </tr>
                 </thead>
 
@@ -106,7 +124,10 @@ export default function TableTasks() {
                         {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : "Data não informada"}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
-                        {task.status ? "Concluído" : "Não Concluído"}
+                        {task.status ? "Concluído" : "Incompleto"}
+                      </td>
+                      <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4 text-right">
+                        {users[task.userId] || "Usuário não encontrado"}
                       </td>
                     </tr>
                   ))}
