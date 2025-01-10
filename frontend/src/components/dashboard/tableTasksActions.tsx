@@ -5,6 +5,7 @@ import { useState } from 'react';
 
 import InputSpan from './inputSpan';
 import InputDate from './inputDate'; 
+import ToggleSwitch from './toggleSwitch'; 
 
 interface TableActionsProps {
   id: string,
@@ -91,7 +92,7 @@ const TableActions = ({ id, userId, setTasks, setFilteredTasks, filter, task }: 
         
         {/* Formulário de Edição Condicional */}
         {isEditing && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed top-0 -left-10 right-0 bottom-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-md shadow-lg w-1/3">
             <h3 className="text-xl font-semibold mb-4">Editar Tarefa</h3>
             <form
@@ -123,16 +124,30 @@ const TableActions = ({ id, userId, setTasks, setFilteredTasks, filter, task }: 
                   width="w-full"
                   icon={<CalendarDaysIcon className="w-4 h-4 text-gray-500" />}
                 />
+                <div className="flex items-center mt-4 mb-2">
+                <label htmlFor="status" className="mr-2">
+                    Status:
+                  </label>
+                  <ToggleSwitch
+                    isEnabled={editedTask.status}
+                    onToggle={(newStatus) =>
+                      setEditedTask({
+                        ...editedTask,
+                        status: newStatus,
+                      })
+                    }
+                  />
+                </div>
                 <div className="flex justify-between mt-4">
                   <button
                     type="submit"
-                    className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600 transition duration-200 ease-in-out"
+                    className="bg-indigo-600 text-white p-2 w-auto rounded-md hover:bg-indigo-700 transition duration-200 ease-in-out"
                   >
                     Salvar
                   </button>
                   <button
                     type="button"
-                    className="bg-gray-500 text-white p-2 rounded-md hover:bg-gray-600 transition duration-200 ease-in-out"
+                    className="bg-gray-400 text-white p-2 rounded-md hover:bg-gray-500 transition duration-200 ease-in-out"
                     onClick={() => setIsEditing(false)} // Fecha o modal sem salvar
                   >
                     Cancelar

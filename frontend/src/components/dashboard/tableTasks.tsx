@@ -18,6 +18,7 @@ export default function tableTasks() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<string>("");
+  const [statusFilter, setStatusFilter] = useState<boolean | null>(null);
   const userId = '677d63cc1648dc7d708af21e';
 
     const [formData, setFormData] = useState({
@@ -56,10 +57,11 @@ export default function tableTasks() {
 
   const handleSubmit = async () => {
     try {
+      const dueDate = formData.dueDate ? new Date(`${formData.dueDate}T00:00:00`) : undefined;
       await createTask({
         title: formData.title,
         status: formData.status,
-        dueDate: formData.dueDate ? new Date(formData.dueDate) : undefined,
+        dueDate,
         userId,
       });
       setFormData({
@@ -97,6 +99,27 @@ export default function tableTasks() {
     setFilteredTasks(filtered);
   };
 
+  const handleStatusFilterChange = (status: boolean | null) => {
+    setStatusFilter(status);
+    applyFilters(tasks, filter, status);
+  };
+
+  const applyFilters = (tasks: Task[], titleFilter: string = filter, statusFilter: boolean | null = null) => {
+    let filtered = tasks;
+
+    if (titleFilter) {
+      filtered = filtered.filter((task) =>
+        task.title.toLowerCase().includes(titleFilter.toLowerCase())
+      );
+    }
+
+    if (statusFilter !== null) {
+      filtered = filtered.filter((task) => task.status === statusFilter);
+    }
+
+    setFilteredTasks(filtered);
+  };
+  
     const TableHeader = (
       <div className="rounded-t mb-0 px-4 py-3 border-0">
           <h2 className="font-semibold text-2xl text-gray-700 text-center my-1">Gerenciador de Tarefas</h2>
@@ -139,11 +162,48 @@ export default function tableTasks() {
                         onClick={handleSubmit}
                     >
                         <PlusCircleIcon className="w-5 h-5 mr-2 text-gray-400 group-hover:text-indigo-600 transition duration-600 ease-in-out" /> Adicionar
-                    </button>
-                    </div>
-               </div>
-           </div>
-       </div>
+                        </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Toggle de status */}
+      <div className="flex justify-center my-4 space-x-6">
+        <label className="inline-flex items-center space-x-2">
+          <input
+            type="radio"
+            name="statusFilter"
+            value="all"
+            checked={statusFilter === null}
+            onChange={() => handleStatusFilterChange(null)}
+            className="form-radio text-indigo-600"
+          />
+          <span>Todos</span>
+        </label>
+        <label className="inline-flex items-center space-x-2">
+          <input
+            type="radio"
+            name="statusFilter"
+            value="completed"
+            checked={statusFilter === true}
+            onChange={() => handleStatusFilterChange(true)}
+            className="form-radio text-green-600"
+          />
+          <span>Concluídos</span>
+        </label>
+        <label className="inline-flex items-center space-x-2">
+          <input
+            type="radio"
+            name="statusFilter"
+            value="incomplete"
+            checked={statusFilter === false}
+            onChange={() => handleStatusFilterChange(false)}
+            className="form-radio text-red-600"
+          />
+          <span>Incompletos</span>
+        </label>
+      </div>
+    </div>
   );
 
   return (
