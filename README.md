@@ -1,7 +1,41 @@
-## TaskRoom
-O desafio consiste em fazer uma aplicação web para cadastro de usuário e gerenciamento de tarefas (Adicionar, listar, editar, excluir e filtrar tarefas)
+<h1 align="center"> Desafio Room Company - RoomTasker </h1>
 
-### Arquitetura de Pastas:
+O desafio consiste no desenvolvimento de uma aplicação web para um cadastro de usuário e gerenciamento de tarefas (Adicionar, listar, editar, excluir e filtrar tarefas)
+---
+## Índice
+
+1. [Descrição do Projeto](#descrição-do-projeto)
+2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+3. [Arquitetura de Pastas](#arquitetura-de-pastas)
+4. [Prints](#prints)
+5. [Como Executar o Projeto](#como-executar-o-projeto)
+---
+## Descrição do Projeto
+
+- Tela de Registro e Login de novos usuários com React
+- RESTFUL API desenvolvida com NodeJS e TypeScript
+- Criação, edição e deleção de tarefas
+- Associação de usuário em tarefas
+- Tela de cadastro de tarefas com filtro de tarefas por título e por status
+- Tela de gerenciamento de tarefas com filtro por usuários
+
+--- 
+
+## Tecnologias Utilizadas
+
+#### Frontend
+- **React.js e Typescript**
+- **Tailwind** e **heroicons** para estilização
+- **Axios** para requisições HTTP
+
+#### Backend
+- **Node.js e Typescript**
+- **Prisma** para ORM e interação com MongoDB
+- **MongoDB** como banco de dados
+
+---
+
+## Arquitetura de Pastas:
 
 ##### Backend:
 ```plaintext
@@ -11,7 +45,6 @@ O desafio consiste em fazer uma aplicação web para cadastro de usuário e gere
 │   ├── models
 │   ├── routes
 │   └── services
-├── tests
 ├── .env
 ├── .gitignore
 ├── package.json
@@ -31,7 +64,33 @@ O desafio consiste em fazer uma aplicação web para cadastro de usuário e gere
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
+└── ... (outros arquivos de configuração)
 ```
-### Ferramentas Utilizadas:
+---
+
+## Prints
+
+Página de Registro:
+![Página de Registro](prints/p1.png)
+
+Gerenciador de Tarefas (Dashboard):
+![Página de Registro](prints/p2.png)
+
+Visualizar Todas as Tarefas Cadastradas com filtro por Usuário:
+![Página de Registro](prints/p3.png)
+
+--- 
+
+## Como Executar o Projeto
+
+Rodar o backend (api):
+    - cd backend
+    - npm run dev
+
+    - O backend estará disponível em http://localhost:3000.
+
+Rodar o frontend:
+    - cd frontend
+    - npm run dev
 
 [![Icons](https://skillicons.dev/icons?i=nodejs,ts,express,react,tailwind)](https://skillicons.dev)
