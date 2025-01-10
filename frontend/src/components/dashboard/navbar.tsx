@@ -1,5 +1,6 @@
 import { Disclosure} from '@headlessui/react'
 import { useLocation } from "react-router-dom";
+import logoRoom from '../../assets/logoroom.svg';
 
 const navigation = [
     { name: 'Seu Dashboard', href: '/dashboard', current: false },
@@ -34,8 +35,8 @@ export default function navbar({ userName }: NavbarProps) {
               <div className="flex shrink-0 items-center">
                 <img
                   alt="RoomTasker"
-                  src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-                  className="h-8 w-auto"
+                  src={logoRoom}
+                  className="h-10 w-auto"
                 />
               </div>
               <div className="hidden sm:ml-6 sm:block">

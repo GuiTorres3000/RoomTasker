@@ -2,6 +2,8 @@ import { useState } from "react";
 import { registerUser } from "../../services/authService";
 import { useNavigate } from "react-router-dom";
 import InputField from "./inputField";
+import logoRoom from '../../assets/logoroom.svg';
+
 
 export default function registerForm() {
   // Definindo estado que armazena os dados
@@ -48,11 +50,14 @@ export default function registerForm() {
 
   const formHeader = (
     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img
-        alt="RoomTasker"
-        src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
-        className="mx-auto h-12 w-auto"
-      />
+      <div className="flex items-center justify-center">
+        <img
+          alt="RoomTasker"
+          src={logoRoom}
+          className="h-12 w-auto"
+        />
+        <span className="ml-3 text-4xl font-bold text-indigo-600"> Tasker</span>
+      </div>
       <h2 className="mt-2 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
         Registre-se para entrar!
       </h2>
@@ -84,14 +89,6 @@ export default function registerForm() {
                 value={formData.email}
                 onChange={handleChange}
               />
-
-              {/* 
-              <div className="text-sm">
-                <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                  Esqueceu sua senha?
-                </a>
-              </div>
-              */}
 
               <InputField
                 id="password"
