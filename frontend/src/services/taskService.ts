@@ -20,10 +20,10 @@ export const createTask = async ({title, status, dueDate, userId}: userProps) =>
     }
 };
 
-
-export const getTasksByUser = async (userId: string) => {
+// Buscar tarefas do usuário
+export const getTasksByUser = async (title: string) => {
     try {
-        const response = await axios.get(`${API_URL}/tasks/user/${userId}`);
+        const response = await axios.get(`${API_URL}/tasks/user/${title}`);
         return response.data;
     } catch (error) {
         console.error('Erro ao buscar tarefas:', error);
@@ -31,7 +31,17 @@ export const getTasksByUser = async (userId: string) => {
     }
 };
 
-// Buscar tarefas do usuário
+export const getTasksByTitle = async (userId: string) => {
+    try {
+        const response = await axios.get(`${API_URL}/tasks/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao buscar tarefas:', error);
+        throw error;
+    }
+};
+
+// Atualizar tarefa
 export const updateTask = async (id: string, {title, status, dueDate, userId}: userProps) => {
     try {
         const response = await axios.put(`${API_URL}/task/${id}`, {title, status, dueDate, userId});

@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getTasksByUser, createTask } from '../../services/taskService';
-import { ClipboardDocumentCheckIcon } from '@heroicons/react/16/solid'
-import { CalendarDaysIcon } from '@heroicons/react/16/solid'
-import { PlusCircleIcon } from '@heroicons/react/16/solid'
+import { ClipboardDocumentCheckIcon, CalendarDaysIcon, PlusCircleIcon, MagnifyingGlassIcon} from '@heroicons/react/16/solid'
 import InputSpan from "./inputSpan";
 import InputDate from "./inputDate";
 import TableActions from './tableTasksActions';
@@ -17,8 +15,10 @@ export interface Task {
 
 export default function tableTasks() {
 
-    const [tasks, setTasks] = useState<Task[]>([]);
-    const userId = '677d63cc1648dc7d708af21e';
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
+  const [filter, setFilter] = useState<string>("");
+  const userId = '677d63cc1648dc7d708af21e';
 
     const [formData, setFormData] = useState({
       title: "",
@@ -32,6 +32,7 @@ export default function tableTasks() {
           try {
             const data = await getTasksByUser(userId);
             setTasks(data);
+            setFilteredTasks(data);
           } catch (error) {
             console.error('Erro ao carregar tarefas:', error);
           }
@@ -74,11 +75,35 @@ export default function tableTasks() {
     }
   };
 
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFilter(value);
+
+    // Filtra as tarefas com base no título
+    const filtered = value
+      ? tasks.filter((task) =>
+          task.title.toLowerCase().includes(value.toLowerCase())
+        )
+      : tasks; // Se não houver filtro (campo vazio), exibe todas as tarefas
+    setFilteredTasks(filtered);
+  };
+
     const TableHeader = (
       <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <h2 className="font-semibold text-2xl text-gray-700 text-center my-4">Gerenciador de Tarefas</h2>
+          <h2 className="font-semibold text-2xl text-gray-700 text-center my-1">Gerenciador de Tarefas</h2>
+            <hr/>
             <div className="flex flex-wrap items-center">
                 <div className="relative w-full px-4 max-w-full flex-grow flex-1 ">
+                    <div className="flex my-2 items-center justify-center ">
+                      <InputSpan
+                        id="taskFilter"
+                        value={filter}
+                        onChange = {handleFilterChange}
+                        width="w-96"
+                        placeholder="Filtrar tarefas pelo título"
+                        icon={<MagnifyingGlassIcon className="w-5 h-5 text-gray-400" />}
+                      />
+                    </div>
                     <div className="flex space-x-10 items-center justify-center">
                     <InputSpan
                         id="title" 
@@ -107,9 +132,6 @@ export default function tableTasks() {
                         <PlusCircleIcon className="w-5 h-5 mr-2 text-gray-400 group-hover:text-indigo-600 transition duration-600 ease-in-out" /> Adicionar
                     </button>
                     </div>
-               </div>
-               <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                   <button className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button">See all</button>
                </div>
            </div>
        </div>
@@ -151,7 +173,7 @@ export default function tableTasks() {
                   </thead>
 
                   <tbody>
-                  {tasks.map((task) => (
+                  {filteredTasks.map((task) => (
                       <tr key={task.id}>
                         <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-nowrap p-4">
                           {task.title}

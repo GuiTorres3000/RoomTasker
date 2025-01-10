@@ -7,7 +7,7 @@ export const taskRoutes = (app: Express) => {
     app.post("/task", (req: Request, res: Response) => createTask(req, res));
 
     // Obter todas as tarefas ou tarefas por título
-    app.get("/tasks", (req: Request, res: Response) => getTasksByTitle(req, res));
+    app.get("/tasks/:title", (req: Request, res: Response) => getTasksByTitle(req, res));
 
     // Obter todas as tarefas de um usuário específico
     app.get("/tasks/user/:userId", (req: Request, res: Response) => getTasksByUser(req, res));
