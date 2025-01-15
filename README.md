@@ -28,10 +28,15 @@ O desafio consiste no desenvolvimento de uma aplicação web para um cadastro de
 - **Tailwind** e **heroicons** para estilização
 - **Axios** para requisições HTTP
 
+[![Icons](https://skillicons.dev/icons?i=react,ts,tailwind)](https://skillicons.dev)
+
 #### Backend
 - **Node.js e Typescript**
+- **Express** framework de rotas
 - **Prisma** para ORM e interação com MongoDB
 - **MongoDB** como banco de dados
+
+[![Icons](https://skillicons.dev/icons?i=nodejs,ts,express,prisma,mongodb)](https://skillicons.dev)
 
 ---
 
@@ -83,14 +88,12 @@ Visualizar Todas as Tarefas Cadastradas com filtro por Usuário:
 
 ## Como Executar o Projeto
 
-Rodar o backend (api):
-    - cd backend
-    - npm run dev
+Rodar o backend (api):<br>
+    - cd backend<br>
+    - npm run dev<br>
 
     - O backend estará disponível em http://localhost:3000.
 
-Rodar o frontend:
-    - cd frontend
+Rodar o frontend:<br>
+    - cd frontend<br>
     - npm run dev
-
-[![Icons](https://skillicons.dev/icons?i=nodejs,ts,express,react,tailwind)](https://skillicons.dev)
